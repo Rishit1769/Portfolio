@@ -1,32 +1,41 @@
 # Portfolio Website
 
-Personal portfolio website built with Next.js App Router, TypeScript, and Tailwind CSS.
+A modern, animation-rich personal portfolio built with Next.js App Router and TypeScript.
 
-This project is focused on a modern, high-contrast visual style with motion-led interactions such as reveal-on-scroll animations and mouse-reactive effects.
+The project emphasizes motion, atmosphere, and interaction design while still keeping the code modular and maintainable.
 
-## Website Outline
+## About The Project
 
-The website is structured as a single-page portfolio experience with the following sections:
+This website presents Rishit as a full-stack developer through a single-page, sectioned experience. It combines expressive typography, custom mouse interactions, reveal-on-scroll transitions, and theme-aware visuals to create a distinctive portfolio style.
 
-1. Hero
-	- Name, role, short value statement, and primary call to action.
-2. About
-	- Personal introduction, background, and design/development approach.
-3. Skills
-	- Tech stack, tools, and capability highlights.
-4. Projects
-	- Selected work with short descriptions, tech used, and links.
-5. Experience / Achievements
-	- Professional timeline, notable outcomes, and milestones.
-6. Contact
-	- Clear ways to connect: email, socials, and optional form.
+Core goals:
 
-## Current Build Status
+- Showcase technical depth and product thinking
+- Highlight selected projects and experience
+- Provide a memorable UI with smooth motion and custom effects
+- Keep the codebase component-driven and reusable
 
-- Base Next.js app setup is complete.
-- Global design system and animation-related styles are configured in app/globals.css.
-- Reusable interaction hooks are available in hooks/useReveal.ts and hooks/useMousePosition.ts.
-- Homepage content in app/page.tsx is currently in starter state and can be replaced with the full portfolio sections listed above.
+## Implemented Sections
+
+The homepage currently includes:
+
+1. Hero section with animated identity treatment
+2. About section with philosophy and stat counters
+3. Skills section with categorized technology cards
+4. Projects section with links and technology tags
+5. Experience section
+6. Contact section with social links
+7. Command-style terminal overlay for quick profile commands
+
+## Key Features
+
+- Theme switching with View Transition animation
+- Custom cursor system (dot + ring) with hover states
+- Scroll-driven reveal animations via IntersectionObserver
+- Mouse-reactive global grid and spotlight effects
+- Canvas-based aurora background animation
+- Scramble and typewriter text micro-interactions
+- Interactive tracking bot element
 
 ## Tech Stack
 
@@ -36,51 +45,69 @@ The website is structured as a single-page portfolio experience with the followi
 - Tailwind CSS 4
 - ESLint
 
-## Project Structure
+## Current Folder Structure
 
 ```text
 app/
-  globals.css        Global styles, theme tokens, motion utilities
-  layout.tsx         Root layout and metadata
-  page.tsx           Main homepage
+	favicon.ico
+	globals.css
+	layout.tsx
+	page.tsx
+
+components/
+	AuroraBackground.tsx
+	ScrambleText.tsx
+	TrackingBot.tsx
+	Typewriter.tsx
 
 hooks/
-  useReveal.ts       Scroll-based reveal + stat counter trigger
-  useMousePosition.ts Mouse tracking + CSS variable updates
+	useMousePosition.ts
+	useReveal.ts
 
-public/              Static assets
+public/
+	file.svg
+	globe.svg
+	next.svg
+	vercel.svg
+	window.svg
+
+AGENTS.md
+CLAUDE.md
+eslint.config.mjs
+next-env.d.ts
+next.config.ts
+package.json
+postcss.config.mjs
+tsconfig.json
 ```
 
 ## Getting Started
 
 1. Install dependencies:
 
-	npm install
+```bash
+npm install
+```
 
 2. Start development server:
 
-	npm run dev
+```bash
+npm run dev
+```
 
 3. Open in browser:
 
-	http://localhost:3000
+```text
+http://localhost:3000
+```
 
-## Available Scripts
+## Scripts
 
-- npm run dev: Start local development server
-- npm run build: Create production build
-- npm run start: Run production server
-- npm run lint: Run lint checks
+- `npm run dev` - Run development server
+- `npm run build` - Create production build
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
 
 ## Deployment
 
-Recommended deployment target: Vercel.
-
-You can also deploy to any platform that supports a Node.js Next.js build output.
-
-## Roadmap
-
-- Replace starter homepage content with final portfolio sections
-- Add project cards and case study details
-- Connect contact section to a backend service or form provider
-- Add SEO metadata for personal branding and social previews
+This app can be deployed on Vercel or any Node.js environment that supports Next.js production builds.

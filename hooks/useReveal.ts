@@ -22,7 +22,7 @@ export const useReveal = () => {
               const intv = setInterval(() => {
                 current += step;
                 if (current >= target) {
-                  c.innerText = target + '+';
+                  c.innerText = `${target}+`;
                   clearInterval(intv);
                 } else {
                   c.innerText = Math.floor(current).toString();

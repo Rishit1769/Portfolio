@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio Website
+
+Personal portfolio website built with Next.js App Router, TypeScript, and Tailwind CSS.
+
+This project is focused on a modern, high-contrast visual style with motion-led interactions such as reveal-on-scroll animations and mouse-reactive effects.
+
+## Website Outline
+
+The website is structured as a single-page portfolio experience with the following sections:
+
+1. Hero
+	- Name, role, short value statement, and primary call to action.
+2. About
+	- Personal introduction, background, and design/development approach.
+3. Skills
+	- Tech stack, tools, and capability highlights.
+4. Projects
+	- Selected work with short descriptions, tech used, and links.
+5. Experience / Achievements
+	- Professional timeline, notable outcomes, and milestones.
+6. Contact
+	- Clear ways to connect: email, socials, and optional form.
+
+## Current Build Status
+
+- Base Next.js app setup is complete.
+- Global design system and animation-related styles are configured in app/globals.css.
+- Reusable interaction hooks are available in hooks/useReveal.ts and hooks/useMousePosition.ts.
+- Homepage content in app/page.tsx is currently in starter state and can be replaced with the full portfolio sections listed above.
+
+## Tech Stack
+
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- ESLint
+
+## Project Structure
+
+```text
+app/
+  globals.css        Global styles, theme tokens, motion utilities
+  layout.tsx         Root layout and metadata
+  page.tsx           Main homepage
+
+hooks/
+  useReveal.ts       Scroll-based reveal + stat counter trigger
+  useMousePosition.ts Mouse tracking + CSS variable updates
+
+public/              Static assets
+```
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+	npm install
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Start development server:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+	npm run dev
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Open in browser:
 
-## Learn More
+	http://localhost:3000
 
-To learn more about Next.js, take a look at the following resources:
+## Available Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- npm run dev: Start local development server
+- npm run build: Create production build
+- npm run start: Run production server
+- npm run lint: Run lint checks
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+Recommended deployment target: Vercel.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+You can also deploy to any platform that supports a Node.js Next.js build output.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Roadmap
+
+- Replace starter homepage content with final portfolio sections
+- Add project cards and case study details
+- Connect contact section to a backend service or form provider
+- Add SEO metadata for personal branding and social previews

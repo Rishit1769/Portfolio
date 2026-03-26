@@ -1,5 +1,15 @@
 # Portfolio Website
 
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-20232a?style=for-the-badge&logo=react&logoColor=61dafb)
+![TypeScript](https://img.shields.io/badge/TypeScript-007acc?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-0f172a?style=for-the-badge&logo=tailwindcss&logoColor=38bdf8)
+![ESLint](https://img.shields.io/badge/ESLint-1e1b4b?style=for-the-badge&logo=eslint&logoColor=white)
+
+[![GitHub](https://img.shields.io/badge/GitHub-0f0f0f?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rishit1769)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0a66c2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/rishit-singh-586742361/)
+[![Email](https://img.shields.io/badge/Email-2c2c2c?style=for-the-badge&logo=gmail&logoColor=white)](mailto:singhrishit471@gmail.com)
+
 A modern, animation-rich personal portfolio built with Next.js App Router and TypeScript.
 
 The project emphasizes motion, atmosphere, and interaction design while still keeping the code modular and maintainable.
@@ -30,10 +40,9 @@ The homepage currently includes:
 ## Key Features
 
 - Theme switching with View Transition animation
-- Custom cursor system (dot + ring) with hover states
+- Custom cursor system (dot + ring) with hover states and smooth motion
 - Scroll-driven reveal animations via IntersectionObserver
-- Mouse-reactive global grid and spotlight effects
-- Canvas-based aurora background animation
+- Mouse-reactive global grid, subtle spotlight effects, and aurora canvas glow
 - Scramble and typewriter text micro-interactions
 - Interactive tracking bot element
 
@@ -42,34 +51,34 @@ The homepage currently includes:
 - Next.js 16 (App Router)
 - React 19
 - TypeScript
-- Tailwind CSS 4
+- Tailwind CSS 4 (installed; layout is driven by custom CSS)
 - ESLint
 
 ## Current Folder Structure
 
 ```text
 app/
-	favicon.ico
-	globals.css
-	layout.tsx
-	page.tsx
+  favicon.ico
+  globals.css
+  layout.tsx
+  page.tsx
 
 components/
-	AuroraBackground.tsx
-	ScrambleText.tsx
-	TrackingBot.tsx
-	Typewriter.tsx
+  AuroraBackground.tsx
+  ScrambleText.tsx
+  TrackingBot.tsx
+  Typewriter.tsx
 
 hooks/
-	useMousePosition.ts
-	useReveal.ts
+  useMousePosition.ts
+  useReveal.ts
 
 public/
-	file.svg
-	globe.svg
-	next.svg
-	vercel.svg
-	window.svg
+  file.svg
+  globe.svg
+  next.svg
+  vercel.svg
+  window.svg
 
 AGENTS.md
 CLAUDE.md

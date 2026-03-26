@@ -136,24 +136,27 @@ export default function Portfolio() {
         case "about":
           newOutput.push(
             <div key={Date.now() + 1}>
-              Rishit is a Full-Stack developer based in Mumbai specializing in
-              performance-first applications.
+              I am Rishit, a developer focused on the intersection of aesthetic
+              design and architectural integrity, with a methodology centered on
+              scalability, maintainability, and performance.
             </div>
           );
           break;
         case "work":
           newOutput.push(
             <div key={Date.now() + 1}>
-              Recent artifact: LostNFound, Cloud Campus. Check the Portfolio
-              section.
+              Projects: LostNFound, Cloud Campus.
             </div>
           );
           break;
         case "skills":
           newOutput.push(
             <div key={Date.now() + 1}>
-              The Arsenal: TypeScript, React, Python, Go, Rust, PostgreSQL,
-              Docker.
+              The Arsenal: TypeScript, JavaScript, Python (DSA), C, React,
+              Next.js, Tailwind CSS, HTML / CSS, Figma, Node.js, Express,
+              FastAPI, Django, Flask, JWT, MySQL, Redis, AWS, Docker,
+              Kubernetes, CI/CD Pipelines, Arch Linux (Desktop), Fedora Linux
+              (Server), Git / GitHub / Gitea.
             </div>
           );
           break;

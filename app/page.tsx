@@ -6,6 +6,20 @@ import { ScrambleText } from "../components/ScrambleText";
 import { Typewriter } from "../components/Typewriter";
 import { TrackingBot } from "../components/TrackingBot";
 import { AuroraBackground } from "../components/AuroraBackground";
+import TechnicalArsenal from "../components/TechnicalArsenal";
+import dynamic from "next/dynamic";
+
+const GitHubCalendar = dynamic(
+  () => import("react-github-calendar").then((m) => m.GitHubCalendar),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="github-calendar-loading">
+        <span className="github-calendar-loading-text">Loading contributions…</span>
+      </div>
+    ),
+  }
+);
 
 export default function Portfolio() {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
@@ -460,46 +474,11 @@ export default function Portfolio() {
       </section>
 
       <section id="skills">
-        <span className="s-num rv">02 — CAPABILITIES</span>
+        <span className="s-num rv">02 — ARSENAL</span>
         <h2 className="s-title rv">
-          The <em>Arsenal</em>
+          Technical <em>Stack</em>
         </h2>
-        <div className="skills-grid">
-          <div className="skill-cat spotlight-card rv" style={{ transitionDelay: "0.1s" }}>
-            <span className="sc-title">Core & Logic</span>
-            <div className="sc-list">
-              {"TypeScript,JavaScript,Python (DSA),C".split(",").map((item) => (
-                <span key={item} className="sc-item hover-link">{item}</span>
-              ))}
-            </div>
-          </div>
-          <div className="skill-cat spotlight-card rv" style={{ transitionDelay: "0.2s" }}>
-            <span className="sc-title">Frontend & Design</span>
-            <div className="sc-list">
-              {"React,Next.js,Tailwind CSS,HTML / CSS,Figma".split(",").map((item) => (
-                <span key={item} className="sc-item hover-link">{item}</span>
-              ))}
-            </div>
-          </div>
-          <div className="skill-cat spotlight-card rv" style={{ transitionDelay: "0.3s" }}>
-            <span className="sc-title">Backend & Data</span>
-            <div className="sc-list">
-              {"Node.js,Express,FastAPI,Django,Flask,JWT,MySQL,Redis".split(",").map((item) => (
-                <span key={item} className="sc-item hover-link">{item}</span>
-              ))}
-            </div>
-          </div>
-          <div className="skill-cat spotlight-card rv" style={{ transitionDelay: "0.4s" }}>
-            <span className="sc-title">Infrastructure</span>
-            <div className="sc-list">
-              {"AWS,Docker,Kubernetes,CI/CD Pipelines,Arch Linux (Desktop),Fedora Linux (Server),Git / GitHub / Gitea"
-                .split(",")
-                .map((item) => (
-                  <span key={item} className="sc-item hover-link">{item}</span>
-                ))}
-            </div>
-          </div>
-        </div>
+        <TechnicalArsenal />
       </section>
 
       <section id="projects">
@@ -573,9 +552,26 @@ export default function Portfolio() {
         </div>
       </section>
 
+      <section id="github-activity">
+        <span className="s-num rv">05 — ACTIVITY</span>
+        <h2 className="s-title rv">
+          GitHub <em>Contributions</em>
+        </h2>
+        <div className="github-calendar-wrap rv">
+          <GitHubCalendar
+            username="Rishit1769"
+            colorScheme={theme === "light" ? "light" : "dark"}
+            blockSize={14}
+            blockMargin={4}
+            fontSize={14}
+            style={{ maxWidth: "100%" }}
+          />
+        </div>
+      </section>
+
       <section id="contact">
         <div className="contact-wrap">
-          <span className="s-num rv">05 — CONNECT</span>
+          <span className="s-num rv">06 — CONNECT</span>
           <h2 className="c-big rv">
             READY TO BUILD
             <br />

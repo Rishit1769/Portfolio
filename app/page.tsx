@@ -474,7 +474,7 @@ export default function Portfolio() {
             num: "01",
             title: "Cloud Campus",
             desc: "A comprehensive, role-based educational management system with AI integrations and high-speed caching.",
-            tags: ["Next.js", "TypeScript", "Express", "MySQL", "Redis", "AWS S3", "Gemini API", "Docker"],
+            tags: ["Next.js", "TypeScript", "Express", "MySQL", "MinIO", "Gemini API", "Docker"],
             links: [
               { name: "GitHub", url: "https://github.com/Rishit1769/CloudCampus" },
               { name: "Gitea", url: "https://gitea.rishit.codes/Rishit/CloudCampus" },

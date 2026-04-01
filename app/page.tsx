@@ -146,7 +146,7 @@ export default function Portfolio() {
         case "work":
           newOutput.push(
             <div key={Date.now() + 1}>
-              Projects: LostNFound, Cloud Campus.
+              Projects: Cloud Campus.
             </div>
           );
           break;
@@ -472,16 +472,6 @@ export default function Portfolio() {
         <div className="project-list">
           {[{
             num: "01",
-            title: "LostNFound",
-            desc: "A centralized platform to report, track, and recover lost belongings seamlessly.",
-            tags: ["React", "Node.js", "Express", "MySQL", "Docker"],
-            links: [
-              { name: "GitHub", url: "https://github.com/Rishit1769/LostNFound" },
-              { name: "Gitea", url: "https://gitea.rishit.codes/Rishit/LostNFound" },
-              { name: "Live ↗", url: "http://lostnfound.rishit.codes/" },
-            ],
-          }, {
-            num: "02",
             title: "Cloud Campus",
             desc: "A comprehensive, role-based educational management system with AI integrations and high-speed caching.",
             tags: ["Next.js", "TypeScript", "Express", "MySQL", "Redis", "AWS S3", "Gemini API", "Docker"],

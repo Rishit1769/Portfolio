@@ -18,6 +18,8 @@ export default function Portfolio() {
   const [termInput, setTermInput] = useState("");
   const [historyIdx, setHistoryIdx] = useState(-1);
   const [scrolled, setScrolled] = useState(false);
+  const [scrollPct, setScrollPct] = useState(0);
+  const [isAtBottom, setIsAtBottom] = useState(false);
 
   const heroRef = useRef<HTMLDivElement>(null);
   const termInputRef = useRef<HTMLInputElement>(null);
@@ -34,6 +36,9 @@ export default function Portfolio() {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       setScrolled(scrollY > 50);
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollPct(maxScroll > 0 ? Math.min(scrollY / maxScroll, 1) : 0);
+      setIsAtBottom(maxScroll > 0 && scrollY >= maxScroll - 10);
       if (heroRef.current && scrollY < window.innerHeight) {
         heroRef.current.style.transform = `translateY(${scrollY * 0.3}px)`;
         heroRef.current.style.opacity = (1 - (scrollY / window.innerHeight) * 1.5).toString();
@@ -157,7 +162,7 @@ export default function Portfolio() {
               Next.js, Tailwind CSS, HTML / CSS, Figma, Node.js, Express,
               FastAPI, Django, Flask, JWT, MySQL, Redis, AWS, Docker,
               Kubernetes, CI/CD Pipelines, Arch Linux (Desktop), Fedora Linux
-              (Server), Git / GitHub / Gitea.
+              (Server), Git / GitHub.
             </div>
           );
           break;
@@ -316,6 +321,36 @@ export default function Portfolio() {
     return () => cards.forEach((card) => card.removeEventListener("mousemove", handleSpotlight));
   }, []);
 
+  useEffect(() => {
+    const tiltCards = document.querySelectorAll<HTMLElement>(".tilt-card");
+    const handleTiltMove = (e: MouseEvent) => {
+      const card = e.currentTarget as HTMLElement;
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `perspective(900px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateZ(6px)`;
+    };
+    const handleTiltLeave = (e: MouseEvent) => {
+      const card = e.currentTarget as HTMLElement;
+      card.style.transform = "perspective(900px) rotateY(0deg) rotateX(0deg) translateZ(0)";
+      card.style.transition = "transform 0.5s cubic-bezier(0.16,1,0.3,1), border-color 0.35s, box-shadow 0.35s";
+    };
+    const handleTiltEnter = (e: MouseEvent) => {
+      const card = e.currentTarget as HTMLElement;
+      card.style.transition = "transform 0.08s linear, border-color 0.35s, box-shadow 0.35s";
+    };
+    tiltCards.forEach((c) => {
+      c.addEventListener("mouseenter", handleTiltEnter);
+      c.addEventListener("mousemove", handleTiltMove);
+      c.addEventListener("mouseleave", handleTiltLeave);
+    });
+    return () => tiltCards.forEach((c) => {
+      c.removeEventListener("mouseenter", handleTiltEnter);
+      c.removeEventListener("mousemove", handleTiltMove);
+      c.removeEventListener("mouseleave", handleTiltLeave);
+    });
+  }, []);
+
   return (
     <>
       <div id="loadbar"></div>
@@ -324,6 +359,33 @@ export default function Portfolio() {
       <div id="cr" ref={cursorRingRef}></div>
       <AuroraBackground isLight={theme === "light"} />
       <div id="global-grid-interactive"></div>
+
+      {/* Scroll Progress Ring */}
+      <div
+        id="scroll-ring-wrap"
+        style={{ opacity: scrollPct > 0.01 && !isAtBottom ? 1 : 0 }}
+        aria-hidden="true"
+      >
+        <svg id="scroll-ring-svg" viewBox="0 0 36 36">
+          <circle
+            cx="18" cy="18" r="14"
+            fill="none"
+            stroke="var(--line)"
+            strokeWidth="1.5"
+          />
+          <circle
+            cx="18" cy="18" r="14"
+            fill="none"
+            stroke="var(--acc)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeDasharray={`${2 * Math.PI * 14}`}
+            strokeDashoffset={`${2 * Math.PI * 14 * (1 - scrollPct)}`}
+            style={{ transform: "rotate(-90deg)", transformOrigin: "center", transition: "stroke-dashoffset 0.15s ease" }}
+          />
+        </svg>
+        <span id="scroll-pct-label">{Math.round(scrollPct * 100)}<sup>%</sup></span>
+      </div>
 
       <nav id="nav" className={scrolled ? "s" : ""}>
         <div className="n-logo">
@@ -346,6 +408,10 @@ export default function Portfolio() {
           <a href="#experience">
             <span className="t1">Experience</span>
             <span className="t2">Experience</span>
+          </a>
+          <a href="#education">
+            <span className="t1">Education</span>
+            <span className="t2">Education</span>
           </a>
           <a href="#contact">
             <span className="t1">Contact</span>
@@ -469,33 +535,70 @@ export default function Portfolio() {
         <h2 className="s-title rv">
           Recent <em>Artifacts</em>
         </h2>
-        <div className="project-list">
-          {[{
-            num: "01",
-            title: "Cloud Campus",
-            desc: "A comprehensive, role-based educational management system with AI integrations and high-speed caching.",
-            tags: ["Next.js", "TypeScript", "Express", "MySQL", "MinIO", "Gemini API", "Docker"],
-            links: [
-              { name: "GitHub", url: "https://github.com/Rishit1769/CloudCampus" },
-              { name: "Gitea", url: "https://gitea.rishit.codes/Rishit/CloudCampus" },
-              { name: "Live ↗", url: "#" },
-            ],
-          }].map((proj, i) => (
-            <div key={proj.num} className="project-row rv" style={{ transitionDelay: `${0.1 + i * 0.1}s` }}>
-              <span className="p-num">{proj.num}</span>
-              <span className="p-title">{proj.title}</span>
-              <span className="p-desc">{proj.desc}</span>
-              <div className="p-tags">
-                {proj.tags.map((tag) => (
-                  <span key={tag} className="p-tag">{tag}</span>
-                ))}
+        <div className="project-grid">
+          {[
+            {
+              num: "01",
+              badge: "LATEST WORK",
+              title: "Cloud Campus",
+              date: "JAN. 2025 — PRESENT",
+              desc: "A comprehensive, role-based educational management system with AI integrations and high-speed caching.",
+              tags: ["Next.js", "TypeScript", "Express", "MySQL", "MinIO", "Gemini API", "Docker"],
+              github: "https://github.com/Rishit1769/CloudCampus",
+              live: "#",
+            },
+            {
+              num: "02",
+              badge: null,
+              title: "Women Safety & Emergency Assistance Platform",
+              date: "JAN. 2026 — PRESENT",
+              desc: "A full-stack women safety platform with real-time SOS alerts, live location sharing via OpenStreetMap, emergency contact management, and an admin dashboard for incident tracking.",
+              tags: ["Next.js", "TypeScript", "Tailwind CSS", "MySQL", "Express", "OpenStreetMap"],
+              github: "https://github.com/Rishit1769",
+              live: "#",
+            },
+            {
+              num: "03",
+              badge: null,
+              title: "AI Based Financial Habit Builder & Wealth Growth Tracker",
+              date: "2026 — PRESENT",
+              desc: "An AI-powered personal finance platform that analyzes spending patterns, builds personalized financial habits, and tracks wealth growth over time. Features Gemini-driven insights, automated email reports via Nodemailer, and secure cloud storage with MinIO on AWS.",
+              tags: ["React", "Tailwind CSS", "Node.js", "Express", "MySQL", "Gemini API", "Nodemailer", "MinIO", "AWS"],
+              github: "https://github.com/Rishit1769",
+              live: "#",
+            },
+            {
+              num: "04",
+              badge: null,
+              title: "University Timetable Generator",
+              date: "2026 — PRESENT",
+              desc: "A university timetable generation system that uses constraint programming (Google OR-Tools) to handle complex mathematics for preventing double-bookings. Built with a React/Tailwind frontend, interactive drag-and-drop calendar UI, and a high-performance FastAPI Python backend storing relational data in MySQL.",
+              tags: ["React", "Tailwind CSS", "FullCalendar", "Axios", "Python", "FastAPI", "MySQL", "OR-Tools"],
+              github: "https://github.com/Rishit1769",
+              live: "#",
+            },
+          ].map((proj, i) => (
+            <div key={proj.num} className="project-card spotlight-card rv" style={{ transitionDelay: `${0.1 + i * 0.1}s` }}>
+              {proj.badge && <span className="p-badge">{proj.badge}</span>}
+              <div className="p-card-body">
+                <div className="p-card-date">{proj.date}</div>
+                <h3 className="p-card-title">{proj.title}</h3>
+                <p className="p-card-desc">{proj.desc}</p>
+                <div className="p-card-tags">
+                  {proj.tags.map((tag) => (
+                    <span key={tag} className="p-card-tag">{tag}</span>
+                  ))}
+                </div>
               </div>
-              <div className="p-links">
-                {proj.links.map((link) => (
-                  <a key={link.name} href={link.url} target="_blank" rel="noreferrer" className="p-link hover-link">
-                    {link.name}
-                  </a>
-                ))}
+              <div className="p-card-actions">
+                <a href={proj.github} target="_blank" rel="noreferrer" className="p-card-btn outline hover-link">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                  Source
+                </a>
+                <a href={proj.live} target="_blank" rel="noreferrer" className="p-card-btn filled hover-btn">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  View Details
+                </a>
               </div>
             </div>
           ))}
@@ -525,9 +628,132 @@ export default function Portfolio() {
         </div>
       </section>
 
+      <section id="education">
+        <span className="s-num rv">05 — FORMATION</span>
+        <h2 className="s-title rv">
+          <em>Education</em>
+        </h2>
+
+        <div className="edu-timeline">
+          {[
+            {
+              period: "2009 — 2022",
+              institution: "Seven Square Academy",
+              degree: "Secondary School Certificate (SSC)",
+              type: "SCHOOL",
+            },
+            {
+              period: "2022 — 2024",
+              institution: "Shree LR Tiwari Degree College",
+              degree: "Higher Secondary Certificate (HSC)",
+              sub: "Arts, Commerce & Science",
+              type: "COLLEGE",
+            },
+            {
+              period: "2024 — 2028",
+              institution: "Thakur College of Engineering & Technology",
+              degree: "Bachelor of Engineering (BE)",
+              sub: "Major · Artificial Intelligence & Data Science",
+              type: "UNIVERSITY",
+            },
+          ].map((edu, i) => (
+            <div key={i} className="edu-row rv" style={{ transitionDelay: `${0.1 + i * 0.1}s` }}>
+              <div className="edu-left">
+                <span className="edu-period">{edu.period}</span>
+                <span className="edu-type">{edu.type}</span>
+              </div>
+              <div className="edu-connector">
+                <div className="edu-dot" />
+                {i < 2 && <div className="edu-line" />}
+              </div>
+              <div className="edu-right">
+                <div className="edu-institution">{edu.institution}</div>
+                <div className="edu-degree">{edu.degree}</div>
+                {edu.sub && <div className="edu-sub">{edu.sub}</div>}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Certifications */}
+        <div style={{ marginTop: "5rem" }}>
+          <span className="cert-eyebrow rv">Certifications</span>
+          <div className="cert-grid">
+            {[
+              {
+                title: "Full Stack Web Development",
+                issuer: "Hitesh Choudhary",
+                icon: (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="16 18 22 12 16 6"/>
+                    <polyline points="8 6 2 12 8 18"/>
+                  </svg>
+                ),
+                file: "/certificates/fullstack-web-dev.pdf",
+              },
+              {
+                title: "AWS: Zero to Hero",
+                issuer: "Memi Lavi",
+                icon: (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
+                  </svg>
+                ),
+                file: "/certificates/aws-zero-to-hero.pdf",
+              },
+              {
+                title: "Arch Linux Fundamentals",
+                issuer: "Self-certified",
+                icon: (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                  </svg>
+                ),
+                file: "/certificates/arch-linux.pdf",
+              },
+              {
+                title: "The Ultimate DevOps Bootcamp",
+                issuer: "KodeKloud",
+                icon: (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                    <line x1="12" y1="22.08" x2="12" y2="12"/>
+                  </svg>
+                ),
+                file: "/certificates/devops-bootcamp.pdf",
+              },
+            ].map((cert, i) => (
+              <div key={i} className="cert-card tilt-card rv spotlight-card" style={{ transitionDelay: `${0.1 + i * 0.08}s` }}>
+                <div className="cert-icon">{cert.icon}</div>
+                <div className="cert-body">
+                  <div className="cert-title">{cert.title}</div>
+                  <div className="cert-issuer">{cert.issuer}</div>
+                </div>
+                <a
+                  href={cert.file}
+                  download
+                  className="cert-download hover-btn"
+                  aria-label={`Download ${cert.title} certificate`}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                  </svg>
+                  <span>Download</span>
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="contact">
         <div className="contact-wrap">
-          <span className="s-num rv">05 — CONNECT</span>
+          <span className="s-num rv">06 — CONNECT</span>
           <h2 className="c-big rv">
             READY TO BUILD
             <br />
@@ -543,7 +769,6 @@ export default function Portfolio() {
           <div className="contact-socials rv">
             <a href="https://www.linkedin.com/in/rishit-singh-586742361/" target="_blank" rel="noreferrer" className="hover-link">LinkedIn</a>
             <a href="https://github.com/Rishit1769" target="_blank" rel="noreferrer" className="hover-link">GitHub</a>
-            <a href="https://gitea.rishit.codes/Rishit" target="_blank" rel="noreferrer" className="hover-link">Gitea</a>
           </div>
         </div>
       </section>

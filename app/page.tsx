@@ -459,7 +459,7 @@ export default function Portfolio() {
               </button>
             </div>
             <div className="h-ctas">
-              <a href="#" className="btn-p magnetic hover-btn" download>
+              <a href="/Resume.pdf" className="btn-p magnetic hover-btn" download="Rishit_Resume.pdf">
                 Download Resume
               </a>
             </div>
@@ -622,6 +622,20 @@ export default function Portfolio() {
                 Leading financial strategy and operations for Annadaan. Responsible for fund allocation,
                 comprehensive budgeting, and ensuring absolute financial transparency to maximize the impact of
                 charitable initiatives. Streamlined financial tracking systems and optimized resource distribution models.
+              </p>
+            </div>
+          </div>
+          <div className="exp-row rv" style={{ transitionDelay: "0.2s" }}>
+            <div className="exp-meta">
+              <span className="exp-time">APR. 2026 — JUN. 2026</span>
+            </div>
+            <div>
+              <div className="exp-role">Full Stack Web Development Intern</div>
+              <div className="exp-company">Unified Mentor</div>
+              <p className="exp-desc">
+                Contributed to full stack development initiatives, building robust web applications and
+                optimizing frontend and backend components. Implemented modern UI/UX principles and integrated
+                RESTful APIs, enhancing overall system performance and user experience.
               </p>
             </div>
           </div>

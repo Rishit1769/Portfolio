@@ -539,47 +539,42 @@ export default function Portfolio() {
           {[
             {
               num: "01",
-              badge: "LATEST WORK",
               title: "Cloud Campus",
-              date: "JAN. 2025 — PRESENT",
+              date: "JAN. 2026 — PRESENT",
               desc: "A comprehensive, role-based educational management system with AI integrations and high-speed caching.",
               tags: ["Next.js", "TypeScript", "Express", "MySQL", "MinIO", "Gemini API", "Docker"],
-              github: "https://github.com/Rishit1769/CloudCampus",
+              github: "https://github.com/Rishit1769/ERP",
               live: "#",
             },
             {
               num: "02",
-              badge: null,
               title: "Women Safety & Emergency Assistance Platform",
               date: "JAN. 2026 — PRESENT",
               desc: "A full-stack women safety platform with real-time SOS alerts, live location sharing via OpenStreetMap, emergency contact management, and an admin dashboard for incident tracking.",
               tags: ["Next.js", "TypeScript", "Tailwind CSS", "MySQL", "Express", "OpenStreetMap"],
-              github: "https://github.com/Rishit1769",
+              github: "https://github.com/Rishit1769/Women-Safety-Emergency-Assistance-Platform",
               live: "#",
             },
             {
               num: "03",
-              badge: null,
               title: "AI Based Financial Habit Builder & Wealth Growth Tracker",
               date: "2026 — PRESENT",
               desc: "An AI-powered personal finance platform that analyzes spending patterns, builds personalized financial habits, and tracks wealth growth over time. Features Gemini-driven insights, automated email reports via Nodemailer, and secure cloud storage with MinIO on AWS.",
               tags: ["React", "Tailwind CSS", "Node.js", "Express", "MySQL", "Gemini API", "Nodemailer", "MinIO", "AWS"],
-              github: "https://github.com/Rishit1769",
+              github: "https://github.com/Rishit1769/AI-Based-Financial-Habit-Builder-Wealth-Growth-Tracker",
               live: "#",
             },
             {
               num: "04",
-              badge: null,
               title: "University Timetable Generator",
               date: "2026 — PRESENT",
               desc: "A university timetable generation system that uses constraint programming (Google OR-Tools) to handle complex mathematics for preventing double-bookings. Built with a React/Tailwind frontend, interactive drag-and-drop calendar UI, and a high-performance FastAPI Python backend storing relational data in MySQL.",
               tags: ["React", "Tailwind CSS", "FullCalendar", "Axios", "Python", "FastAPI", "MySQL", "OR-Tools"],
-              github: "https://github.com/Rishit1769",
+              github: "https://github.com/Rishit1769/Timetable-Generator",
               live: "#",
             },
           ].map((proj, i) => (
             <div key={proj.num} className="project-card spotlight-card rv" style={{ transitionDelay: `${0.1 + i * 0.1}s` }}>
-              {proj.badge && <span className="p-badge">{proj.badge}</span>}
               <div className="p-card-body">
                 <div className="p-card-date">{proj.date}</div>
                 <h3 className="p-card-title">{proj.title}</h3>

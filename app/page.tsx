@@ -7,6 +7,7 @@ import { Typewriter } from "../components/Typewriter";
 import { TrackingBot } from "../components/TrackingBot";
 import { AuroraBackground } from "../components/AuroraBackground";
 import TechnicalArsenal from "../components/TechnicalArsenal";
+import { GitHubCalendar } from "react-github-calendar";
 
 export default function Portfolio() {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
@@ -20,6 +21,11 @@ export default function Portfolio() {
   const [scrolled, setScrolled] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
   const [isAtBottom, setIsAtBottom] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const heroRef = useRef<HTMLDivElement>(null);
   const termInputRef = useRef<HTMLInputElement>(null);
@@ -135,7 +141,7 @@ export default function Portfolio() {
         case "help":
           newOutput.push(
             <div key={Date.now() + 1}>
-              Available: about, work, skills, contact, theme, clear, exit
+              Available: about, work, skills, experience, education, contact, theme, clear, exit
             </div>
           );
           break;
@@ -151,18 +157,28 @@ export default function Portfolio() {
         case "work":
           newOutput.push(
             <div key={Date.now() + 1}>
-              Projects: Cloud Campus.
+              Projects: Cloud Campus, Women Safety & Emergency Assistance Platform, AI Based Financial Habit Builder & Wealth Growth Tracker, University Timetable Generator.
             </div>
           );
           break;
         case "skills":
           newOutput.push(
             <div key={Date.now() + 1}>
-              The Arsenal: TypeScript, JavaScript, Python (DSA), C, React,
-              Next.js, Tailwind CSS, HTML / CSS, Figma, Node.js, Express,
-              FastAPI, Django, Flask, JWT, MySQL, Redis, AWS, Docker,
-              Kubernetes, CI/CD Pipelines, Arch Linux (Desktop), Fedora Linux
-              (Server), Git / GitHub.
+              The Arsenal: TypeScript, JavaScript, Python, C, Next.js, React, Node.js, Express.js, Tailwind CSS, MySQL, Redis, Firebase, AWS (S3, EC2, IAM), Nginx, Docker, Linux Server Admin.
+            </div>
+          );
+          break;
+        case "experience":
+          newOutput.push(
+            <div key={Date.now() + 1}>
+              Experience: Chief Financial Officer @ Annadaan (2024 — 2026), Full Stack Web Development Intern @ Unified Mentor (Apr. 2026 — Jun. 2026).
+            </div>
+          );
+          break;
+        case "education":
+          newOutput.push(
+            <div key={Date.now() + 1}>
+              Education: BE in AI & Data Science @ Thakur College of Engineering & Technology (2024 — 2028).
             </div>
           );
           break;
@@ -186,7 +202,7 @@ export default function Portfolio() {
           if (val) {
             newOutput.push(
               <div key={Date.now() + 1} style={{ color: "var(--acc)" }}>
-                Command not found: {val}. Type 'help' for list.
+                Command not found: {val}. Type &apos;help&apos; for list.
               </div>
             );
           }
@@ -495,7 +511,7 @@ export default function Portfolio() {
               I thrive at the intersection of aesthetic design and architectural integrity.
             </p>
             <p>
-              With over 3 years of experience in the full-stack landscape, I've developed
+              With over 3 years of experience in the full-stack landscape, I&apos;ve developed
               a methodology centered on <strong>scalability</strong>, <strong>maintainability</strong>,
               and <strong>performance</strong>.
             </p>
@@ -591,8 +607,8 @@ export default function Portfolio() {
                   Source
                 </a>
                 <a href={proj.live} target="_blank" rel="noreferrer" className="p-card-btn filled hover-btn">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                  View Details
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  Live Link
                 </a>
               </div>
             </div>
@@ -760,9 +776,32 @@ export default function Portfolio() {
         </div>
       </section>
 
+      <section id="github-activity">
+        <span className="s-num rv">06 — OPEN SOURCE</span>
+        <h2 className="s-title rv">
+          <em>Contributions</em>
+        </h2>
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "4rem", width: "100%", padding: "0 1rem" }} className="rv">
+          <div style={{ background: "var(--bg1)", padding: "2.5rem", borderRadius: "12px", border: "1px solid var(--line)", boxShadow: "0 20px 40px var(--shadow)", color: "var(--t1)", width: "max-content", maxWidth: "100%", overflowX: "auto" }}>
+            {isMounted && (
+              <GitHubCalendar 
+                username="Rishit1769" 
+                colorScheme={theme} 
+                fontSize={14}
+                blockSize={14}
+                theme={{
+                  light: ['#e8e8e8', '#fbc1ce', '#f98fa7', '#f6537a', '#ff3366'],
+                  dark: ['#1a1a1a', '#3f422c', '#686d49', '#96a066', '#d2db8e']
+                }}
+              />
+            )}
+          </div>
+        </div>
+      </section>
+
       <section id="contact">
         <div className="contact-wrap">
-          <span className="s-num rv">06 — CONNECT</span>
+          <span className="s-num rv">07 — CONNECT</span>
           <h2 className="c-big rv">
             READY TO BUILD
             <br />

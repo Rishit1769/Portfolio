@@ -817,6 +817,7 @@ export default function Portfolio() {
           <div className="contact-socials rv">
             <a href="https://www.linkedin.com/in/rishit-singh-586742361/" target="_blank" rel="noreferrer" className="hover-link">LinkedIn</a>
             <a href="https://github.com/Rishit1769" target="_blank" rel="noreferrer" className="hover-link">GitHub</a>
+            <a href="https://leetcode.com/u/ovvdu8UyhD/" target="_blank" rel="noreferrer" className="hover-link">LeetCode</a>
           </div>
         </div>
       </section>

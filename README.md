@@ -11,6 +11,7 @@
 [![Email](https://img.shields.io/badge/Email-2c2c2c?style=for-the-badge&logo=gmail&logoColor=white)](mailto:singhrishit471@gmail.com)
 
 A modern, animation-rich personal portfolio built with Next.js App Router and TypeScript.
+Website Live Link: https://rishit.codes
 
 The project emphasizes motion, atmosphere, and interaction design while still keeping the code modular and maintainable.
 

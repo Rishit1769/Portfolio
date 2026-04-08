@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    image: portfolio-nextjs:latest
+    restart: always
+    ports:
+      - "3002:3002"
+    environment:
+      - NODE_ENV=production
+    # Uncomment if you want to use a .env file
+    # env_file:
+    #   - .env

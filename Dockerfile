@@ -1,0 +1,40 @@
+# Use the official Node.js 20 image as the base
+FROM node:20-alpine AS builder
+
+# Set working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json (if available)
+COPY package.json .
+COPY package-lock.json .
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application code
+COPY . .
+
+# Build the Next.js app
+RUN npm run build
+
+# Production image, copy built assets from builder
+FROM node:20-alpine AS runner
+WORKDIR /app
+
+# Install only production dependencies
+COPY package.json .
+COPY package-lock.json .
+RUN npm install --omit=dev
+
+# Copy built app from builder
+COPY --from=builder /app/.next .next
+COPY --from=builder /app/public public
+COPY --from=builder /app/next.config.ts ./next.config.ts
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+# Expose port 3000
+EXPOSE 3000
+
+# Start the Next.js app
+CMD ["npm", "start"]

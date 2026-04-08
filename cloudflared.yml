@@ -1,0 +1,9 @@
+# cloudflared tunnel configuration for Docker Compose
+# This file is optional if you use the CLI token directly, but is recommended for production.
+tunnel: portfolio-tunnel
+credentials-file: /etc/cloudflared/credentials.json
+
+ingress:
+  - hostname: <YOUR_DOMAIN>
+    service: http://web:3000
+  - service: http_status:404
